@@ -68,6 +68,8 @@ function NavBar() {
         </nav>
         <a
           href="mailto:m.mobeen2003.786@gmail.com"
+          target="_blank"
+          rel="noreferrer"
           className="font-mono text-xs px-3 py-1.5 rounded border border-amber/40 text-amber hover:bg-amber hover:text-ink transition-colors"
         >
           say hello
@@ -80,7 +82,7 @@ function NavBar() {
 function Hero() {
   const typed = useTypingLoop(LOG_LINES)
   return (
-    <section id="top" className="max-w-5xl mx-auto px-6 md:px-10 pt-12 pb-16 md:pt-16 md:pb-20">
+    <section id="top" className="max-w-5xl mx-auto px-6 md:px-10 pt-10 pb-12 md:pt-12 md:pb-16">
       <div className="grid md:grid-cols-5 gap-12 items-start">
         <div className="md:col-span-3">
           <p className="hero-rise font-mono text-xs text-muted mb-6">
@@ -115,6 +117,8 @@ function Hero() {
           <div className="hero-rise-delay-2 mt-8 flex flex-wrap gap-3">
             <a
               href="mailto:m.mobeen2003.786@gmail.com"
+              target="_blank"
+              rel="noreferrer"
               className="font-sans text-sm px-5 py-2.5 rounded bg-amber text-ink font-medium hover:bg-parchment transition-colors"
             >
               Email me
@@ -175,7 +179,7 @@ function Hero() {
 
 function About() {
   return (
-    <section id="about" className="max-w-5xl mx-auto px-6 md:px-10 py-20 border-t border-white/5">
+    <section id="about" className="max-w-5xl mx-auto px-6 md:px-10 py-12 border-t border-white/5">
       <div className="grid md:grid-cols-5 gap-12">
         <div className="md:col-span-2">
           <SectionLabel>about</SectionLabel>
@@ -198,9 +202,8 @@ function About() {
           <p>
             Outside of work, I build full-stack side projects that pair
             everyday problems with AI — a voice-to-invoice billing tool and a
-            multi-service SaaS platform are the two I'm proudest of. I'm
-            finishing a BS in Information Technology at Government College
-            University Faisalabad, graduating in 2026.
+            multi-service SaaS platform are the two I'm proudest of. I hold a
+            BS in Information Technology from GCUF, class of 2026.
           </p>
         </div>
       </div>
@@ -232,7 +235,7 @@ function Experience() {
   ]
 
   return (
-    <section id="experience" className="max-w-5xl mx-auto px-6 md:px-10 py-20 border-t border-white/5">
+    <section id="experience" className="max-w-5xl mx-auto px-6 md:px-10 py-12 border-t border-white/5">
       <SectionLabel>experience</SectionLabel>
       <h2 className="font-serif text-3xl text-parchment mb-12">Where the work happened</h2>
 
@@ -264,7 +267,7 @@ function Experience() {
 function ProjectPanel({ index, title, period, description, tags, link, linkLabel }) {
   const flip = index % 2 === 1
   return (
-    <div className={`grid md:grid-cols-5 gap-8 py-14 border-t border-white/5 ${flip ? 'md:text-right' : ''}`}>
+    <div className={`grid md:grid-cols-5 gap-8 py-10 border-t border-white/5 ${flip ? 'md:text-right' : ''}`}>
       <div className={`md:col-span-2 ${flip ? 'md:order-2' : ''}`}>
         <p className="font-mono text-xs text-teal mb-3">{period}</p>
         <h3 className="font-serif text-3xl text-parchment leading-tight">{title}</h3>
@@ -319,7 +322,7 @@ function Projects() {
   ]
 
   return (
-    <section id="work" className="max-w-5xl mx-auto px-6 md:px-10 py-20 border-t border-white/5">
+    <section id="work" className="max-w-5xl mx-auto px-6 md:px-10 py-12 border-t border-white/5">
       <SectionLabel>selected work</SectionLabel>
       <h2 className="font-serif text-3xl text-parchment">Two projects worth a closer look</h2>
       <div>
@@ -347,7 +350,7 @@ function Skills() {
     },
   ]
   return (
-    <section id="skills" className="max-w-5xl mx-auto px-6 md:px-10 py-20 border-t border-white/5">
+    <section id="skills" className="max-w-5xl mx-auto px-6 md:px-10 py-12 border-t border-white/5">
       <SectionLabel>skills</SectionLabel>
       <h2 className="font-serif text-3xl text-parchment mb-12">What I build with</h2>
       <div className="grid sm:grid-cols-3 gap-10">
@@ -370,7 +373,7 @@ function Skills() {
 
 function Education() {
   return (
-    <section className="max-w-5xl mx-auto px-6 md:px-10 py-20 border-t border-white/5">
+    <section className="max-w-5xl mx-auto px-6 md:px-10 py-12 border-t border-white/5">
       <div className="grid md:grid-cols-2 gap-10">
         <div>
           <SectionLabel>education</SectionLabel>
@@ -396,13 +399,13 @@ function Education() {
 
 function Contact() {
   return (
-    <footer id="contact" className="max-w-5xl mx-auto px-6 md:px-10 py-24 border-t border-white/5">
+    <footer id="contact" className="max-w-5xl mx-auto px-6 md:px-10 py-16 border-t border-white/5">
       <SectionLabel>get in touch</SectionLabel>
       <h2 className="font-serif text-4xl md:text-5xl text-parchment max-w-xl leading-tight">
         Looking for a MERN developer in Faisalabad? Let's talk.
       </h2>
       <div className="mt-10 flex flex-wrap gap-x-10 gap-y-4 font-sans text-[16px]">
-        <a href="mailto:m.mobeen2003.786@gmail.com" className="text-parchment hover:text-amber transition-colors">
+        <a href="mailto:m.mobeen2003.786@gmail.com" target="_blank" rel="noreferrer" className="text-parchment hover:text-amber transition-colors">
           m.mobeen2003.786@gmail.com
         </a>
         <a href="tel:+923280640754" className="text-parchment hover:text-amber transition-colors">
