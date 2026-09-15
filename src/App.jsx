@@ -80,7 +80,7 @@ function NavBar() {
 function Hero() {
   const typed = useTypingLoop(LOG_LINES)
   return (
-    <section id="top" className="max-w-5xl mx-auto px-6 md:px-10 pt-20 pb-24 md:pt-28 md:pb-32">
+    <section id="top" className="max-w-5xl mx-auto px-6 md:px-10 pt-12 pb-16 md:pt-16 md:pb-20">
       <div className="grid md:grid-cols-5 gap-12 items-start">
         <div className="md:col-span-3">
           <p className="hero-rise font-mono text-xs text-muted mb-6">
