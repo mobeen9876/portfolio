@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 const LOG_LINES = [
   'shipping React screens from Figma, pixel by pixel',
@@ -10,7 +10,7 @@ const LOG_LINES = [
 function useTypingLoop(lines, typeSpeed = 38, holdMs = 1400, deleteSpeed = 22) {
   const [lineIndex, setLineIndex] = useState(0)
   const [text, setText] = useState('')
-  const [phase, setPhase] = useState('typing') // typing | holding | deleting
+  const [phase, setPhase] = useState('typing')
 
   useEffect(() => {
     const current = lines[lineIndex]
@@ -37,6 +37,44 @@ function useTypingLoop(lines, typeSpeed = 38, holdMs = 1400, deleteSpeed = 22) {
   }, [text, phase, lineIndex, lines, typeSpeed, holdMs, deleteSpeed])
 
   return text
+}
+
+function useInView(threshold = 0.12) {
+  const ref = useRef(null)
+  const [visible, setVisible] = useState(false)
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true)
+          observer.disconnect()
+        }
+      },
+      { threshold }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [threshold])
+  return [ref, visible]
+}
+
+function FadeIn({ children, className = '', delay = 0 }) {
+  const [ref, visible] = useInView()
+  return (
+    <div
+      ref={ref}
+      className={className}
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? 'translateY(0)' : 'translateY(28px)',
+        transition: `opacity 0.65s cubic-bezier(0.16,1,0.3,1) ${delay}ms, transform 0.65s cubic-bezier(0.16,1,0.3,1) ${delay}ms`,
+      }}
+    >
+      {children}
+    </div>
+  )
 }
 
 function SectionLabel({ children }) {
@@ -82,7 +120,7 @@ function NavBar() {
 function Hero() {
   const typed = useTypingLoop(LOG_LINES)
   return (
-    <section id="top" className="max-w-5xl mx-auto px-6 md:px-10 pt-10 pb-12 md:pt-12 md:pb-16">
+    <section id="top" className="max-w-5xl mx-auto px-6 md:px-10 pt-10 pb-6 md:pt-12 md:pb-8">
       <div className="grid md:grid-cols-5 gap-12 items-start">
         <div className="md:col-span-3">
           <p className="hero-rise font-mono text-xs text-muted mb-6">
@@ -140,7 +178,7 @@ function Hero() {
           </div>
         </div>
 
-        <div className="md:col-span-2">
+        <div className="hero-rise-delay-2 md:col-span-2">
           <div className="bg-panel border border-white/5 rounded-lg p-5">
             <div className="flex gap-1.5 mb-4">
               <span className="w-2.5 h-2.5 rounded-full bg-white/10" />
@@ -179,15 +217,15 @@ function Hero() {
 
 function About() {
   return (
-    <section id="about" className="max-w-5xl mx-auto px-6 md:px-10 py-12 border-t border-white/5">
+    <section id="about" className="max-w-5xl mx-auto px-6 md:px-10 pt-8 pb-12 border-t border-white/5">
       <div className="grid md:grid-cols-5 gap-12">
-        <div className="md:col-span-2">
+        <FadeIn className="md:col-span-2">
           <SectionLabel>about</SectionLabel>
           <h2 className="font-serif text-3xl text-parchment">
             From intern to shipping features on his own
           </h2>
-        </div>
-        <div className="md:col-span-3 font-sans text-muted leading-relaxed space-y-4 text-[17px]">
+        </FadeIn>
+        <FadeIn className="md:col-span-3 font-sans text-muted leading-relaxed space-y-4 text-[17px]" delay={100}>
           <p>
             I'm a MERN stack developer based in Faisalabad, currently building
             production features at TechTrack — I joined as an intern and grew
@@ -205,7 +243,7 @@ function About() {
             multi-service SaaS platform are the two I'm proudest of. I hold a
             BS in Information Technology from GCUF, class of 2026.
           </p>
-        </div>
+        </FadeIn>
       </div>
     </section>
   )
@@ -236,27 +274,31 @@ function Experience() {
 
   return (
     <section id="experience" className="max-w-5xl mx-auto px-6 md:px-10 py-12 border-t border-white/5">
-      <SectionLabel>experience</SectionLabel>
-      <h2 className="font-serif text-3xl text-parchment mb-12">Where the work happened</h2>
+      <FadeIn>
+        <SectionLabel>experience</SectionLabel>
+        <h2 className="font-serif text-3xl text-parchment mb-12">Where the work happened</h2>
+      </FadeIn>
 
       <div className="relative pl-8">
         <div className="absolute left-[7px] top-2 bottom-2 w-px bg-white/10" />
         <div className="space-y-14">
-          {roles.map((role) => (
-            <div key={role.title} className="relative">
-              <span className="absolute -left-8 top-1.5 w-3.5 h-3.5 rounded-full bg-amber" />
-              <p className="font-mono text-xs text-teal mb-2">{role.period}</p>
-              <h3 className="font-serif text-2xl text-parchment">{role.title}</h3>
-              <p className="font-sans text-sm text-muted mb-4">{role.org}</p>
-              <ul className="space-y-2">
-                {role.points.map((point) => (
-                  <li key={point} className="font-sans text-[16px] text-muted leading-relaxed flex gap-3">
-                    <span className="text-amber mt-1.5 w-1.5 h-1.5 rounded-full bg-amber shrink-0" />
-                    {point}
-                  </li>
-                ))}
-              </ul>
-            </div>
+          {roles.map((role, i) => (
+            <FadeIn key={role.title} delay={i * 120}>
+              <div className="relative">
+                <span className="absolute -left-8 top-1.5 w-3.5 h-3.5 rounded-full bg-amber" />
+                <p className="font-mono text-xs text-teal mb-2">{role.period}</p>
+                <h3 className="font-serif text-2xl text-parchment">{role.title}</h3>
+                <p className="font-sans text-sm text-muted mb-4">{role.org}</p>
+                <ul className="space-y-2">
+                  {role.points.map((point) => (
+                    <li key={point} className="font-sans text-[16px] text-muted leading-relaxed flex gap-3">
+                      <span className="text-amber mt-1.5 w-1.5 h-1.5 rounded-full bg-amber shrink-0" />
+                      {point}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </FadeIn>
           ))}
         </div>
       </div>
@@ -267,35 +309,37 @@ function Experience() {
 function ProjectPanel({ index, title, period, description, tags, link, linkLabel }) {
   const flip = index % 2 === 1
   return (
-    <div className={`grid md:grid-cols-5 gap-8 py-10 border-t border-white/5 ${flip ? 'md:text-right' : ''}`}>
-      <div className={`md:col-span-2 ${flip ? 'md:order-2' : ''}`}>
-        <p className="font-mono text-xs text-teal mb-3">{period}</p>
-        <h3 className="font-serif text-3xl text-parchment leading-tight">{title}</h3>
-        {link && (
-          <a
-            href={link}
-            target="_blank"
-            rel="noreferrer"
-            className={`inline-block mt-5 font-sans text-sm px-4 py-2 rounded border border-white/15 text-parchment hover:border-amber hover:text-amber transition-colors`}
-          >
-            {linkLabel}
-          </a>
-        )}
-      </div>
-      <div className={`md:col-span-3 ${flip ? 'md:order-1' : ''}`}>
-        <p className="font-sans text-[17px] text-muted leading-relaxed mb-5">{description}</p>
-        <div className={`flex flex-wrap gap-2 ${flip ? 'md:justify-end' : ''}`}>
-          {tags.map((tag) => (
-            <span
-              key={tag}
-              className="font-mono text-xs text-teal border border-teal/30 rounded px-2 py-1"
+    <FadeIn delay={index * 100}>
+      <div className={`grid md:grid-cols-5 gap-8 py-10 border-t border-white/5 ${flip ? 'md:text-right' : ''}`}>
+        <div className={`md:col-span-2 ${flip ? 'md:order-2' : ''}`}>
+          <p className="font-mono text-xs text-teal mb-3">{period}</p>
+          <h3 className="font-serif text-3xl text-parchment leading-tight">{title}</h3>
+          {link && (
+            <a
+              href={link}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-block mt-5 font-sans text-sm px-4 py-2 rounded border border-white/15 text-parchment hover:border-amber hover:text-amber transition-colors"
             >
-              {tag}
-            </span>
-          ))}
+              {linkLabel}
+            </a>
+          )}
+        </div>
+        <div className={`md:col-span-3 ${flip ? 'md:order-1' : ''}`}>
+          <p className="font-sans text-[17px] text-muted leading-relaxed mb-5">{description}</p>
+          <div className={`flex flex-wrap gap-2 ${flip ? 'md:justify-end' : ''}`}>
+            {tags.map((tag) => (
+              <span
+                key={tag}
+                className="font-mono text-xs text-teal border border-teal/30 rounded px-2 py-1"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    </FadeIn>
   )
 }
 
@@ -323,8 +367,10 @@ function Projects() {
 
   return (
     <section id="work" className="max-w-5xl mx-auto px-6 md:px-10 py-12 border-t border-white/5">
-      <SectionLabel>selected work</SectionLabel>
-      <h2 className="font-serif text-3xl text-parchment">Two projects worth a closer look</h2>
+      <FadeIn>
+        <SectionLabel>selected work</SectionLabel>
+        <h2 className="font-serif text-3xl text-parchment">Two projects worth a closer look</h2>
+      </FadeIn>
       <div>
         {projects.map((p, i) => (
           <ProjectPanel key={p.title} index={i} {...p} />
@@ -351,11 +397,13 @@ function Skills() {
   ]
   return (
     <section id="skills" className="max-w-5xl mx-auto px-6 md:px-10 py-12 border-t border-white/5">
-      <SectionLabel>skills</SectionLabel>
-      <h2 className="font-serif text-3xl text-parchment mb-12">What I build with</h2>
+      <FadeIn>
+        <SectionLabel>skills</SectionLabel>
+        <h2 className="font-serif text-3xl text-parchment mb-12">What I build with</h2>
+      </FadeIn>
       <div className="grid sm:grid-cols-3 gap-10">
-        {groups.map((group) => (
-          <div key={group.name}>
+        {groups.map((group, i) => (
+          <FadeIn key={group.name} delay={i * 100}>
             <h3 className="font-sans text-sm font-medium text-amber mb-4">{group.name}</h3>
             <ul className="space-y-2.5">
               {group.items.map((item) => (
@@ -364,7 +412,7 @@ function Skills() {
                 </li>
               ))}
             </ul>
-          </div>
+          </FadeIn>
         ))}
       </div>
     </section>
@@ -375,13 +423,13 @@ function Education() {
   return (
     <section className="max-w-5xl mx-auto px-6 md:px-10 py-12 border-t border-white/5">
       <div className="grid md:grid-cols-2 gap-10">
-        <div>
+        <FadeIn>
           <SectionLabel>education</SectionLabel>
           <h3 className="font-serif text-2xl text-parchment">BS Information Technology</h3>
           <p className="font-sans text-muted mt-2">Government College University, Faisalabad</p>
           <p className="font-mono text-xs text-teal mt-2">2022 — 2026</p>
-        </div>
-        <div>
+        </FadeIn>
+        <FadeIn delay={100}>
           <SectionLabel>certification</SectionLabel>
           <h3 className="font-serif text-2xl text-parchment">
             Web and Mobile App Development
@@ -391,7 +439,7 @@ function Education() {
           </p>
           <p className="font-mono text-xs text-teal mt-2">Nov 2024 — Aug 2025 · 10 months</p>
           <p className="font-mono text-xs text-muted mt-1">SMIT/2025/WMA/B8/308452</p>
-        </div>
+        </FadeIn>
       </div>
     </section>
   )
@@ -400,25 +448,29 @@ function Education() {
 function Contact() {
   return (
     <footer id="contact" className="max-w-5xl mx-auto px-6 md:px-10 py-16 border-t border-white/5">
-      <SectionLabel>get in touch</SectionLabel>
-      <h2 className="font-serif text-4xl md:text-5xl text-parchment max-w-xl leading-tight">
-        Looking for a MERN developer in Faisalabad? Let's talk.
-      </h2>
-      <div className="mt-10 flex flex-wrap gap-x-10 gap-y-4 font-sans text-[16px]">
-        <a href="mailto:m.mobeen2003.786@gmail.com" target="_blank" rel="noreferrer" className="text-parchment hover:text-amber transition-colors">
-          m.mobeen2003.786@gmail.com
-        </a>
-        <a href="tel:+923280640754" className="text-parchment hover:text-amber transition-colors">
-          +92 328 0640754
-        </a>
-        <a href="https://github.com/mobeen9876" target="_blank" rel="noreferrer" className="text-parchment hover:text-amber transition-colors">
-          github.com/mobeen9876
-        </a>
-        <a href="#" className="text-parchment hover:text-amber transition-colors">
-          linkedin.com/in/your-handle
-        </a>
-      </div>
-      <p className="font-mono text-xs text-muted mt-16">Muhammad Mobeen — Faisalabad, Pakistan</p>
+      <FadeIn>
+        <SectionLabel>get in touch</SectionLabel>
+        <h2 className="font-serif text-4xl md:text-5xl text-parchment max-w-xl leading-tight">
+          Looking for a MERN developer in Faisalabad? Let's talk.
+        </h2>
+      </FadeIn>
+      <FadeIn delay={120}>
+        <div className="mt-10 flex flex-wrap gap-x-10 gap-y-4 font-sans text-[16px]">
+          <a href="mailto:m.mobeen2003.786@gmail.com" target="_blank" rel="noreferrer" className="text-parchment hover:text-amber transition-colors">
+            m.mobeen2003.786@gmail.com
+          </a>
+          <a href="tel:+923280640754" className="text-parchment hover:text-amber transition-colors">
+            +92 328 0640754
+          </a>
+          <a href="https://github.com/mobeen9876" target="_blank" rel="noreferrer" className="text-parchment hover:text-amber transition-colors">
+            github.com/mobeen9876
+          </a>
+          <a href="#" className="text-parchment hover:text-amber transition-colors">
+            linkedin.com/in/your-handle
+          </a>
+        </div>
+        <p className="font-mono text-xs text-muted mt-16">Muhammad Mobeen — Faisalabad, Pakistan</p>
+      </FadeIn>
     </footer>
   )
 }
