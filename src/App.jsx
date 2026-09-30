@@ -105,12 +105,11 @@ function NavBar() {
           ))}
         </nav>
         <a
-          href="mailto:m.mobeen2003.786@gmail.com"
-          target="_blank"
-          rel="noreferrer"
-          className="font-sans text-sm px-4 py-1.5 rounded-full border border-amber/50 text-amber hover:bg-amber hover:text-ink transition-colors duration-200"
+          href="/Muhammad_Mobeen_CV.pdf"
+          download="Muhammad_Mobeen_CV.pdf"
+          className="font-sans text-sm px-4 py-1.5 rounded-full border border-white/20 text-parchment hover:border-amber hover:text-amber transition-colors duration-200"
         >
-          Say hello
+          Download CV
         </a>
       </div>
     </header>
