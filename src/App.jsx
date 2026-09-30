@@ -457,8 +457,8 @@ function Contact() {
           <a href="https://github.com/mobeen9876" target="_blank" rel="noreferrer" className="text-parchment hover:text-amber transition-colors">
             github.com/mobeen9876
           </a>
-          <a href="#" className="text-parchment hover:text-amber transition-colors">
-            linkedin.com/in/your-handle
+          <a href="https://www.linkedin.com/in/muhammad-mobeen-192196323" target="_blank" rel="noreferrer" className="text-parchment hover:text-amber transition-colors">
+            linkedin.com/in/muhammad-mobeen
           </a>
         </div>
         <p className="font-mono text-xs text-muted mt-16">Muhammad Mobeen — Faisalabad, Pakistan</p>
