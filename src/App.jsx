@@ -176,7 +176,7 @@ function Hero() {
               GitHub
             </a>
             <a
-              href="/Muhammad_Mobeen_CV (3).pdf"
+              href="/Muhammad_Mobeen_CV.pdf"
               download="Muhammad_Mobeen_CV.pdf"
               className="font-sans text-sm px-5 py-2.5 rounded border border-teal/40 text-teal hover:bg-teal hover:text-ink transition-colors"
             >
