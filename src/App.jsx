@@ -351,25 +351,17 @@ function Projects() {
       description:
         'A full-stack SaaS platform with role-based access control, Stripe payments, real-time updates through Pusher, and AI features powered by Groq and Gemini. Documented across six chapters in GCUF format, with architecture diagrams — the evaluation panel called it impressive at defence.',
       tags: ['Node.js', 'Express', 'MongoDB', 'React', 'Vite', 'Stripe', 'Pusher', 'Groq', 'Gemini'],
-      link: 'https://github.com/mobeen9876/SaaS-Platform-Complete',
-      linkLabel: 'View on GitHub',
+      link: 'https://saa-s-platform-z28j.vercel.app',
+      linkLabel: 'View Live',
     },
-    {
-      title: 'AI Voice Billing System',
-      period: 'Personal project',
-      description:
-        'A voice-to-invoice billing app for a mobile accessories shop: speech gets transcribed with OpenAI Whisper and turned into a structured invoice with GPT. Includes inline invoice detail panels, pagination, and modal-based product management.',
-      tags: ['MERN', 'OpenAI Whisper', 'OpenAI GPT', 'Vercel'],
-      link: null,
-      linkLabel: 'View project',
-    },
+
   ]
 
   return (
     <section id="work" className="max-w-5xl mx-auto px-6 md:px-10 py-12 border-t border-white/5">
       <FadeIn>
         <SectionLabel>selected work</SectionLabel>
-        <h2 className="font-serif text-3xl text-parchment">Two projects worth a closer look</h2>
+        <h2 className="font-serif text-3xl text-parchment">Projects worth a closer look</h2>
       </FadeIn>
       <div>
         {projects.map((p, i) => (
