@@ -205,7 +205,7 @@ function Hero() {
             <dl className="mt-5 space-y-0 font-sans text-sm divide-y divide-white/5">
               {[
                 ['Role', 'MERN Stack Developer'],
-                ['Company', 'TechTrack'],
+                ['Company', 'TechTrack Business Solutions'],
                 ['Experience', '1 year'],
                 ['Education', 'BSIT, GCUF — 2026'],
               ].map(([dt, dd]) => (
@@ -249,7 +249,7 @@ function About() {
           <div className="space-y-5 font-sans text-[17px] text-muted leading-[1.8]">
             <p>
               I'm a MERN stack developer based in Faisalabad, currently building
-              production features at TechTrack — I joined as an intern and grew
+              production features at TechTrack Business Solutions — I joined as an intern and grew
               into a full-time developer role on the same team.
             </p>
             <p>
@@ -278,7 +278,7 @@ function Experience() {
     {
       period: 'Mar 2026 — Present',
       title: 'MERN Stack Developer',
-      org: 'TechTrack, Faisalabad',
+      org: 'TechTrack Business Solutions, Faisalabad',
       points: [
         'Build production React interfaces from Figma designs using a shared component library.',
         'Built a Job Management CRUD module for an admin panel, then extended the same pattern to Payment History and Support Ticket modules.',
@@ -288,7 +288,7 @@ function Experience() {
     {
       period: 'Sep 2025 — Feb 2026',
       title: 'Software Engineering Intern',
-      org: 'TechTrack, Faisalabad',
+      org: 'TechTrack Business Solutions, Faisalabad',
       points: [
         'Onboarded onto live MERN codebases and shipped first production UI changes under senior guidance.',
         'Learned Git/GitHub and npm-based team workflows, and built the React fundamentals everything above is built on.',
