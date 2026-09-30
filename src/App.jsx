@@ -175,6 +175,13 @@ function Hero() {
             >
               GitHub
             </a>
+            <a
+              href="/Muhammad_Mobeen_CV (3).pdf"
+              download="Muhammad_Mobeen_CV.pdf"
+              className="font-sans text-sm px-5 py-2.5 rounded border border-teal/40 text-teal hover:bg-teal hover:text-ink transition-colors"
+            >
+              Download CV
+            </a>
           </div>
         </div>
 
@@ -221,9 +228,14 @@ function About() {
       <div className="grid md:grid-cols-5 gap-12">
         <FadeIn className="md:col-span-2">
           <SectionLabel>about</SectionLabel>
-          <h2 className="font-serif text-3xl text-parchment">
+          <h2 className="font-serif text-3xl text-parchment mb-6">
             From intern to shipping features on his own
           </h2>
+          <img
+            src="/Mobeen_LinkedIn_Photo.jpg"
+            alt="Muhammad Mobeen"
+            className="w-36 h-36 rounded-xl object-cover object-top border border-white/10"
+          />
         </FadeIn>
         <FadeIn className="md:col-span-3 font-sans text-muted leading-relaxed space-y-4 text-[17px]" delay={100}>
           <p>
